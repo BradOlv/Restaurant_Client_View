@@ -1,9 +1,9 @@
-import { ClientLoginPage } from '../features/auth/pages/ClientLoginPage';
+import { AppRoutes } from './router/AppRoutes'; 
 
 function App() {
   return (
     <>
-      <ClientLoginPage />
+      <AppRoutes />
     </>
   )
 }
