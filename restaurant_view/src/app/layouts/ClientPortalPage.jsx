@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
-import { ClientContainer } from "../../shared/components/layout/ClientContainer";
+import { useNavigate } from "react-router-dom";
+
+// Importaciones de imágenes corregidas
+import POLLO_IMG from "../../assets/img/pollo.jpg";
+import ALITAS_IMG from "../../assets/img/alitas.png";
+import CAMARONES_IMG from "../../assets/img/camarones.png";
+import PIZZA_IMG from "../../assets/img/pizza.jpg";
+import ENSALADAS_IMG from "../../assets/img/ensaladas.png";
+import LOGO_KINAL from "../../assets/img/logofriedchicken.png"; 
 
 export const ClientPortalPage = () => {
-    // 1. LÓGICA DEL CARRUSEL
+    const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const slides = [
@@ -10,26 +18,28 @@ export const ClientPortalPage = () => {
             id: 1,
             title: "ENSALADA DE CAMARONES",
             subtitle: "¡NUEVO TAZÓN DE TEMPORADA!",
-            bgColor: "bg-[#e11d48]", // Rojo 
-            textColor: "text-white"
+            bgColor: "bg-[#e11d48]", 
+            textColor: "text-white",
+            img: CAMARONES_IMG
         },
         {
             id: 2,
             title: "MEGA COMBO KINAL",
             subtitle: "12 PIEZAS + PAPAS + GASEOSA",
-            bgColor: "bg-[#fb923c]", // Naranja
-            textColor: "text-white"
+            bgColor: "bg-[#fb923c]", 
+            textColor: "text-white",
+            img: POLLO_IMG
         },
         {
             id: 3,
-            title: "POSTRES DE LA CASA",
-            subtitle: "HELADOS Y PASTELES",
-            bgColor: "bg-[#facc15]", // Amarillo
-            textColor: "text-red-900"
+            title: "PIZZAS ARTESANALES",
+            subtitle: "EL MEJOR SABOR ITALIANO",
+            bgColor: "bg-[#facc15]", 
+            textColor: "text-red-900",
+            img: PIZZA_IMG
         }
     ];
 
-    // Efecto para que el carrusel cambie cada 4 segundos automáticamente
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -37,114 +47,120 @@ export const ClientPortalPage = () => {
         return () => clearInterval(timer);
     }, [slides.length]);
 
-
-    // 2. DATOS DEL MENÚ (GRID TIPO BENTO)
     const menuCategories = [
-        { id: 1, title: "CAMARONES KINAL", span: "md:col-span-2", bg: "bg-[#facc15]", text: "text-red-900" },
-        { id: 2, title: "KINALITOS Y ALITAS", span: "md:col-span-1", bg: "bg-[#fb923c]", text: "text-white" },
-        { id: 3, title: "POLLO TRADICIONAL", span: "md:col-span-1", bg: "bg-[#e11d48]", text: "text-white" },
-        { id: 4, title: "PIZZAS", span: "md:col-span-1", bg: "bg-[#fb923c]", text: "text-white" },
-        { id: 5, title: "ENSALADAS Y DESAYUNOS", span: "md:col-span-1", bg: "bg-[#facc15]", text: "text-red-900" },
+        { id: 1, title: "CAMARONES KINAL", span: "md:col-span-2", bg: "bg-[#facc15]", text: "text-red-900", img: CAMARONES_IMG },
+        { id: 2, title: "KINALITOS Y ALITAS", span: "md:col-span-1", bg: "bg-[#fb923c]", text: "text-white", img: ALITAS_IMG },
+        { id: 3, title: "POLLO TRADICIONAL", span: "md:col-span-1", bg: "bg-[#e11d48]", text: "text-white", img: POLLO_IMG },
+        { id: 4, title: "PIZZAS", span: "md:col-span-1", bg: "bg-[#fb923c]", text: "text-white", img: PIZZA_IMG },
+        { id: 5, title: "ENSALADAS Y DESAYUNOS", span: "md:col-span-1", bg: "bg-[#facc15]", text: "text-red-900", img: ENSALADAS_IMG },
     ];
 
     return (
-        <ClientContainer>
-            <div className="space-y-12 pb-12">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+            <div className="space-y-16 pb-12">
                 
                 {/* --- SECCIÓN 1: HERO CARRUSEL --- */}
-                <div className="relative w-full h-[350px] md:h-[450px] rounded-3xl overflow-hidden shadow-2xl group">
+                <div className="relative w-full h-[400px] md:h-[500px] rounded-[3.5rem] overflow-hidden shadow-2xl group">
                     {slides.map((slide, index) => (
                         <div 
                             key={slide.id}
-                            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out flex flex-col justify-center items-center text-center p-6
+                            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out flex flex-col md:flex-row justify-between items-center p-12 md:px-24
                                 ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"}
                                 ${slide.bgColor}
                                 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]
                             `}
                         >
-                            <h2 className={`text-4xl md:text-6xl font-black italic tracking-tighter drop-shadow-lg ${slide.textColor}`}>
-                                {slide.title}
-                            </h2>
-                            <p className={`mt-4 text-lg md:text-2xl font-bold tracking-widest ${slide.textColor}`}>
-                                {slide.subtitle}
-                            </p>
+                            <div className="text-center md:text-left z-10 max-w-xl">
+                                <h2 className={`text-5xl md:text-7xl font-black italic tracking-tighter drop-shadow-xl ${slide.textColor} leading-none`}>
+                                    {slide.title}
+                                </h2>
+                                <p className={`mt-6 text-xl md:text-3xl font-bold tracking-widest ${slide.textColor} opacity-90`}>
+                                    {slide.subtitle}
+                                </p>
+                            </div>
                             
-                            {/* Placeholder de imagen centrada */}
-                            <div className="mt-6 w-48 h-48 md:w-64 md:h-64 bg-white/20 rounded-full border-4 border-dashed border-white/50 flex items-center justify-center backdrop-blur-sm">
-                                <span className={`${slide.textColor} font-bold opacity-80`}>[Imagen del Plato]</span>
+                            <div className="relative flex items-center justify-center">
+                                <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-white/20 rounded-full blur-3xl"></div>
+                                <img 
+                                    src={slide.img} 
+                                    alt={slide.title} 
+                                    className="relative z-10 w-64 h-64 md:w-80 md:h-80 object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.4)] animate-float"
+                                />
                             </div>
                         </div>
                     ))}
 
-                    {/* Controles manuales (Puntos) */}
-                    <div className="absolute bottom-16 left-0 right-0 flex justify-center gap-3 z-20">
+                    <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-3 z-20">
                         {slides.map((_, index) => (
                             <button 
                                 key={index}
                                 onClick={() => setCurrentSlide(index)}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 shadow-md ${index === currentSlide ? "bg-white scale-125 w-8" : "bg-white/50 hover:bg-white"}`}
+                                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-white scale-125 w-12" : "bg-white/40"}`}
                             />
                         ))}
                     </div>
                 </div>
 
-                {/* --- SECCIÓN 2: BARRA FLOTANTE (ESTILO CAMPERO) --- */}
-                <div className="max-w-4xl mx-auto -mt-20 relative z-30">
-                    <div className="bg-white rounded-2xl shadow-xl p-4 md:p-6 flex flex-col md:flex-row items-center justify-between border border-gray-100 gap-4">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden border border-gray-200">
-                                <span className="text-xl">🍗</span>
-                            </div>
+                {/* --- SECCIÓN 2: BARRA BIENVENIDA --- */}
+                <div className="max-w-5xl mx-auto -mt-24 relative z-30 px-4">
+                    <div className="bg-white rounded-[2.5rem] shadow-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between border border-gray-100 gap-6">
+                        <div className="flex items-center gap-6">
+                            <div className="w-16 h-16 bg-[#fef2f2] rounded-full flex items-center justify-center border border-red-50 text-3xl shadow-inner">🍗</div>
                             <div>
-                                <h3 className="font-bold text-gray-800">¡Bienvenido al portal, Bradley!</h3>
-                                <p className="text-xs text-gray-500 font-medium">Tienes <span className="text-[#e11d48] font-bold">150 KinalPuntos</span></p>
+                                <h3 className="font-black text-2xl text-gray-800 tracking-tight leading-none">¡Bienvenido, Bradley!</h3>
+                                <p className="mt-1 text-sm text-gray-400 font-bold uppercase tracking-widest">Puntos Kinal: <span className="text-[#e11d48]">150</span></p>
                             </div>
                         </div>
-                        <div className="flex w-full md:w-auto gap-3">
-                            <button className="flex-1 md:flex-none px-6 py-2.5 bg-[#facc15] hover:bg-yellow-500 text-red-800 font-bold rounded-xl text-sm transition-colors shadow-sm">
-                                Ver mi cuenta
+                        <div className="flex w-full md:w-auto gap-4">
+                            <button className="flex-1 md:flex-none px-10 py-4 bg-[#facc15] hover:bg-yellow-500 text-red-900 font-black rounded-2xl text-xs uppercase tracking-[0.2em] transition-all shadow-lg active:scale-95">
+                                Mi Cuenta
                             </button>
-                            <button className="flex-1 md:flex-none px-6 py-2.5 bg-[#e11d48] hover:bg-red-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm">
-                                Menú Completo
+                            <button 
+                                onClick={() => navigate('/portal/menu')}
+                                className="flex-1 md:flex-none px-10 py-4 bg-[#e11d48] hover:bg-red-700 text-white font-black rounded-2xl text-xs uppercase tracking-[0.2em] transition-all shadow-lg active:scale-95"
+                            >
+                                Ver Menú
                             </button>
                         </div>
                     </div>
                 </div>
 
-                {/* --- SECCIÓN 3: GRID DE CATEGORÍAS (BENTO UI) --- */}
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                {/* --- SECCIÓN 3: GRID DE CATEGORÍAS --- */}
+                <div className="px-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {menuCategories.map((cat) => (
                             <div 
                                 key={cat.id} 
-                                className={`${cat.span} ${cat.bg} rounded-3xl h-48 md:h-64 p-6 relative overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300`}
+                                onClick={() => navigate('/portal/menu')}
+                                className={`${cat.span} ${cat.bg} rounded-[3rem] h-64 md:h-80 p-10 relative overflow-hidden group cursor-pointer shadow-xl hover:shadow-2xl transition-all duration-500`}
                             >
-'                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/food.png')] opacity-10 mix-blend-overlay"></div>
+                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/food.png')] opacity-10 mix-blend-overlay"></div>
                                 
-                                <div className="relative z-10 h-full flex flex-col justify-between">
-                                    <h3 className={`text-2xl md:text-3xl font-black w-2/3 leading-tight ${cat.text} group-hover:scale-105 transition-transform origin-top-left`}>
+                                <div className="relative z-10 h-full flex flex-col justify-between items-start">
+                                    {/* Ajuste de ancho del título para que no choque con la imagen */}
+                                    <h3 className={`text-4xl md:text-5xl font-black w-[60%] leading-[0.85] tracking-tighter ${cat.text} group-hover:scale-105 transition-transform origin-top-left`}>
                                         {cat.title}
                                     </h3>
                                     
-                                    <div>
-                                        <button className={`px-5 py-2 rounded-full font-bold text-sm shadow-sm transition-all hover:scale-105
-                                            ${cat.bg === 'bg-[#facc15]' ? 'bg-white text-red-700' : 'bg-[#facc15] text-red-900'}
-                                        `}>
-                                            Seleccionar
-                                        </button>
-                                    </div>
+                                    <button className={`px-8 py-3 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] shadow-md transition-all hover:translate-y-[-4px]
+                                        ${cat.bg === 'bg-[#facc15]' ? 'bg-white text-red-700' : 'bg-[#facc15] text-red-900'}
+                                    `}>
+                                        Seleccionar
+                                    </button>
                                 </div>
 
-                                {/* Placeholder de imagen en la esquina (el plato cortado a la mitad) */}
-                                <div className="absolute -bottom-8 -right-8 w-40 h-40 md:w-48 md:h-48 bg-white/20 rounded-full border-8 border-white/10 group-hover:scale-110 transition-transform flex items-center justify-center">
-                                     <span className="text-4xl opacity-50">🍽️</span>
+                                <div className="absolute -bottom-8 -right-10 w-56 h-56 md:w-72 md:h-72 group-hover:scale-110 transition-transform duration-700 rotate-12 group-hover:rotate-0 drop-shadow-[0_20px_20px_rgba(0,0,0,0.3)]">
+                                    <img 
+                                        src={cat.img} 
+                                        alt={cat.title} 
+                                        className="w-full h-full object-contain"
+                                    />
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-
             </div>
-        </ClientContainer>
+        </div>
     );
 };
