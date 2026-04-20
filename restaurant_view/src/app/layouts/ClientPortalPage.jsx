@@ -131,7 +131,7 @@ export const ClientPortalPage = () => {
                         {menuCategories.map((cat) => (
                             <div 
                                 key={cat.id} 
-                                onClick={() => navigate('/portal/menu')}
+                                onClick={() => navigate(`/portal/menu/${cat.title}`)}
                                 className={`${cat.span} ${cat.bg} rounded-[3rem] h-64 md:h-80 p-10 relative overflow-hidden group cursor-pointer shadow-xl hover:shadow-2xl transition-all duration-500`}
                             >
                                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/food.png')] opacity-10 mix-blend-overlay"></div>
