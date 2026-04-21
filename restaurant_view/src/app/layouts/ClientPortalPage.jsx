@@ -111,11 +111,14 @@ export const ClientPortalPage = () => {
                                 <p className="mt-1 text-sm text-gray-400 font-bold uppercase tracking-widest">Puntos Kinal: <span className="text-[#e11d48]">150</span></p>
                             </div>
                         </div>
-                        <div className="flex w-full md:w-auto gap-4">
-                            <button className="flex-1 md:flex-none px-10 py-4 bg-[#facc15] hover:bg-yellow-500 text-red-900 font-black rounded-2xl text-xs uppercase tracking-[0.2em] transition-all shadow-lg active:scale-95">
+                      <div className="flex w-full md:w-auto gap-4">
+                            <button
+                                onClick={() => navigate('/portal/perfil')} // <-- AGREGAR ESTO
+                                className="flex-1 md:flex-none px-10 py-4 bg-[#facc15] hover:bg-yellow-500 text-red-900 font-black rounded-2xl text-xs uppercase tracking-[0.2em] transition-all shadow-lg active:scale-95"
+                            >
                                 Mi Cuenta
                             </button>
-                            <button 
+                            <button
                                 onClick={() => navigate('/portal/menu')}
                                 className="flex-1 md:flex-none px-10 py-4 bg-[#e11d48] hover:bg-red-700 text-white font-black rounded-2xl text-xs uppercase tracking-[0.2em] transition-all shadow-lg active:scale-95"
                             >
